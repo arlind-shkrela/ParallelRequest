@@ -14,7 +14,6 @@ namespace ParallelRequest.Controllers
             _logger = logger;
         }
 
-        //[HttpGet(Name = "endusersession")]
         [Route("/endusersession")]
         [HttpPost]
         public async Task<IActionResult> Get()
@@ -31,14 +30,13 @@ namespace ParallelRequest.Controllers
             return Ok(await response.Content.ReadAsStringAsync());
         }
 
-        //[HttpGet(Name = "sessions")]
         [Route("/sessions")]
         [HttpPost]
-        public async Task<IActionResult> Sessions()
+        public async Task<IActionResult> Sessions(string endUserSessionId)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Post, "http://185.13.72.81/pfs/sessions");
-            request.Headers.Add("X-API-EndUserSessionId", "LJZfhUCGYpBFpUhUg9rajV");
+            request.Headers.Add("X-API-EndUserSessionId", endUserSessionId);
             request.Headers.Add("X-API-Version", "2.1.0.0");
             request.Headers.Add("X-API-ApplicationId", "D66BA979-60D2-49AA-BE82-AEC06356E41F");
             var content = new StringContent("// Doris Day Access ID \r\n{\r\n  \"AccessIdentityGuid\": \"6dc7ae64-a1dd-481e-a735-f82d3bf48407\",\r\n  \"NationalPracticeCode\": \"A28579\"\r\n}", null, "application/json");

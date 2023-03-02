@@ -6,7 +6,8 @@ using ParallelRequest.Models;
 namespace ParallelRequest.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;

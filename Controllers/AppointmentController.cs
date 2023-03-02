@@ -3,7 +3,8 @@ using Newtonsoft.Json;
 using ParallelRequest.DTO;
 namespace ParallelRequest.Controllers
 {
-    [ApiController]
+    //[ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]")]
     public class AppointmentController : ControllerBase
     {

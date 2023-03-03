@@ -113,6 +113,25 @@ namespace ParallelRequest.Controllers
 
         }
 
+        [Route("/TTFB-parallel-batches-medical-record")]
+        [HttpGet]
+        public async Task<IActionResult> GetTTFBManyMedical(string endUserSessionId, string sessionId, string userPatientLinkToken)
+        {
+            var watch = new Stopwatch();
+
+            watch.Start();
+            var tasks = new List<Task<HttpResponseMessage>>();
+        
+            await MakeRequestAsync(new Uri($"http://185.13.72.81/pfs/record?UserPatientLinkToken={userPatientLinkToken}"), endUserSessionId, sessionId);
+          
+            await Task.WhenAll(tasks.ToArray());
+            watch.Stop();
+            this.Response.Headers.Add("TTFB", JsonConvert.SerializeObject(watch.ElapsedMilliseconds));
+
+            return Ok();
+
+        }
+
         private async Task<HttpResponseMessage> MakeRequestAsync(Uri uri, string endUserSessionId, string sessionId)
         {
             try
